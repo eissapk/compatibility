@@ -415,7 +415,7 @@
         );
       }
       var manifestString = "age=" + finalResult.manifest.age + "&name=" + finalResult.manifest.name + "&gender=" + finalResult.manifest.gender;
-      var link = window.location.origin + "/?info=true&" + manifestString + "&" + getString(1) + "&" + getString(2) + "&" + getString(3) + "&" + getString(4);
+      var link = window.location.origin + "/compatibility/?info=true&" + manifestString + "&" + getString(1) + "&" + getString(2) + "&" + getString(3) + "&" + getString(4);
 
       let linkTemp =
         '<div id="sharedLink">' +
