@@ -1,84 +1,8 @@
 (function () {
   var partnerInfo = null;
-  var validationObj = {
-    1: {
-      active: true,
-      active: true,
-      educated: true,
-      rich: true,
-      impartial: true,
-      chic: true,
-      romantic: true,
-      sociable: true,
-      travelLover: true,
-      serious: true,
-      comic: true,
-      patient: true,
-      dealingWithPeople: true,
-      goodTalker: true,
-      dealingWithChildren: true,
-      lithe: true,
-      handsome: true,
-    },
-    2: {
-      lazy: true,
-      notEducated: true,
-      introverted: true,
-      anger: true,
-      notFit: true,
-      poor: true,
-      notComic: true,
-      notChic: true,
-      stingy: true,
-      doesntLikeWork: true,
-      lavish: true,
-      parentControl: true,
-      unemployed: true,
-      lowLevelJob: true,
-      noCertificate: true,
-      livesInFamilyHome: true,
-      livesInRuralArea: true,
-      unromantic: true,
-      doesntLikeOutAndTravel: true,
-    },
-    3: {
-      pretty: true,
-      graceful: true,
-      active: true,
-      skilledInKitchen: true,
-      economical: true,
-      shy: true,
-      sociable: true,
-      travelAndBeAroundLover: true,
-      educated: true,
-      expertWithKids: true,
-      rich: true,
-      ancientFamily: true,
-      chic: true,
-      cleaning: true,
-      patient: true,
-      serious: true,
-      comedic: true,
-      travelLover: true,
-    },
-    4: {
-      lazy: true,
-      uneducated: true,
-      introverted: true,
-      stingy: true,
-      notPretty: true,
-      notGraceful: true,
-      poorFamily: true,
-      anger: true,
-      noTasteInClothes: true,
-      dontCareAboutCleaningTooMuch: true,
-      notComical: true,
-      badInKitchen: true,
-      wasteful: true,
-      parentControl: true,
-      notTooShy: true,
-    },
-  };
+  var domain = "/compatibility";
+  domain = ""; // uncommnet for dev mode only
+  var limit = 5;
 
   var dataArray = [
     {
@@ -372,7 +296,7 @@
       var character = input.id.split("_")[0];
       if (isChecked) checkedItems.push({ id: id, index: i, isChecked: isChecked, character: character });
     }
-    if (checkedItems.length !== 5) return warn(e.target);
+    if (checkedItems.length !== limit) return warn(e.target);
     save(checkedItems, e.target);
   }
 
@@ -386,6 +310,12 @@
     if (input) input.focus();
   }
 
+  function isDone() {
+    var forms = document.getElementsByTagName("form");
+    if (forms.length == 0) return true;
+    return false;
+  }
+
   var finalResult = { manifest: manifest };
   function save(arr, form) {
     var response = document.createElement("div");
@@ -395,12 +325,81 @@
     response.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
     finalResult[arr[0].id] = arr;
     // console.warn(finalResult);
-    shareLinkForPartner();
+    if (isDone() && partnerInfo && partnerInfo.gender && partnerInfo.age && partnerInfo.name && partnerInfo[1] && partnerInfo[2] && partnerInfo[3] && partnerInfo[4]) {
+      if (partnerInfo.gender !== finalResult.manifest.gender) {
+        // should be the opposite gender
+        showMatchPercent(finalResult, partnerInfo);
+      } else {
+        alert("Genders are the same!");
+      }
+    } else {
+      shareLinkForPartner();
+    }
+  }
+
+  function showMatchPercent(obj, old) {
+    console.warn("showMatchPercent");
+    var wrapper = document.getElementsByTagName("main")[0];
+    var current = {
+      age: obj.manifest.age,
+      gender: obj.manifest.gender,
+      name: obj.manifest.name,
+      1: {},
+      2: {},
+      3: {},
+      4: {},
+    };
+    obj[1].forEach(function(item) {(current[1][item.character] = true)});
+    obj[2].forEach(function(item) {(current[2][item.character] = true)});
+    obj[3].forEach(function(item) {(current[3][item.character] = true)});
+    obj[4].forEach(function(item) {(current[4][item.character] = true)});
+
+    var total = [];
+    console.warn("current:", current);
+    console.warn("old:", old);
+
+    Object.keys(current[1]).forEach(function(key) { (old[1][key] ? total.push(1) : null)});
+    Object.keys(current[2]).forEach(function(key) { (old[2][key] ? total.push(1) : null)});
+    Object.keys(current[3]).forEach(function(key) { (old[3][key] ? total.push(1) : null)});
+    Object.keys(current[4]).forEach(function(key) { (old[4][key] ? total.push(1) : null)});
+    var num = 0;
+    total.forEach(function (item) {num+=item})
+    var percent = (num / (limit * 4)) * 100;
+    console.warn("percent:",percent);
+    var className = percent < 50 ? "red" : percent == 50 ? "yellow" : "green";
+    
+    function getTd(num) {
+      var str = "<tr class='head'><td>Form "+num+"</td><td>Form "+num+"</td></tr>";
+      Object.keys(current[num]).forEach(function(x,index) {
+        Object.keys(old[num]).forEach(function(y, ind) {
+          if (index !== ind) return;
+          str += "<tr><td>"+x+"</td><td>"+y+"</td></tr>";
+        });
+      });
+      return str;
+    }
+
+    wrapper.innerHTML = 
+      '<div id="result">'
+      + ' <h3>Matching result!</h3>'
+      + ' <p class="' + className + '">' + percent + '%</p>'
+      + ' <table>'
+      + '   <tbody>'
+      + '     <tr>'
+      + '       <th>' + current.name + ' - ' + current.age + '</th>'
+      + '       <th>' + old.name + ' - ' + old.age + '</th>'
+      + '     </tr>'
+      +      getTd(1)
+      +      getTd(2)
+      +      getTd(3)
+      +      getTd(4)
+      + '   </tbody>'
+      + ' </table>'
+      + ' </div>';
   }
 
   function shareLinkForPartner() {
-    var forms = document.getElementsByTagName("form");
-    if (forms.length === 0) {
+    if (isDone()) {
       if (partnerInfo) return; // validate both current (finalDate) and partner
       function getString(key) {
         return (
@@ -415,7 +414,7 @@
         );
       }
       var manifestString = "age=" + finalResult.manifest.age + "&name=" + finalResult.manifest.name + "&gender=" + finalResult.manifest.gender;
-      var link = window.location.origin + "/compatibility/?info=true&" + manifestString + "&" + getString(1) + "&" + getString(2) + "&" + getString(3) + "&" + getString(4);
+      var link = window.location.origin + domain + "/?info=true&" + manifestString + "&" + getString(1) + "&" + getString(2) + "&" + getString(3) + "&" + getString(4);
 
       let linkTemp =
         '<div id="sharedLink">' +
