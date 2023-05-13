@@ -369,9 +369,8 @@
     var className = percent < 50 ? "red" : percent == 50 ? "yellow" : "green";
     
     function getTrans(index, code) {
-      return code; // todo: fix the translation
-      const word = dataArray[index].items.find(item => item.code === code)[manifest.lang];
-      console.warn("word:",word);
+      const word = dataArray[index-1].items.find(item => item.code === code)[manifest.lang];
+      // console.warn("word:",word);
       return word 
     }
     function getTd(num) {
@@ -379,7 +378,7 @@
       Object.keys(current[num]).forEach(function(x,index) {
         Object.keys(old[num]).forEach(function(y, ind) {
           if (index !== ind) return;
-          str += "<tr><td>"+getTrans(index, x)+"</td><td>"+getTrans(index, y)+"</td></tr>";
+          str += "<tr><td>"+getTrans(num, x)+"</td><td>"+getTrans(num, y)+"</td></tr>";
         });
       });
       return str;
