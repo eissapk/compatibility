@@ -369,6 +369,7 @@
     var className = percent < 50 ? "red" : percent == 50 ? "yellow" : "green";
     
     function getTrans(index, code) {
+      // must to deduct 1, because index here is not zero based
       const word = dataArray[index-1].items.find(item => item.code === code)[manifest.lang];
       // console.warn("word:",word);
       return word 
