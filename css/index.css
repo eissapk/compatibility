@@ -3,14 +3,16 @@ html {
   margin: 0;
   padding: 0;
   font-family: Helvetica, Arial, sans-serif;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   color: #333;
 }
 
 *,
 *::after,
 *::before {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 h1,
@@ -36,6 +38,7 @@ main {
   background-size: cover;
   background-position: center center;
 }
+
 main div.response {
   text-align: center;
   line-height: 30px;
@@ -48,6 +51,7 @@ main div.response {
   background: #3584e2;
   color: #fff;
 }
+
 main form {
   max-width: 500px;
   margin: 0 auto;
@@ -55,6 +59,7 @@ main form {
   padding-bottom: 50px;
   position: relative;
 }
+
 main form::after {
   content: "";
   position: absolute;
@@ -64,6 +69,7 @@ main form::after {
   left: 0;
   bottom: 0;
 }
+
 main form h3 {
   font-size: 16px;
   color: #333;
@@ -73,6 +79,7 @@ main form h3 {
           user-select: none;
   color: white;
 }
+
 main form p {
   margin: 10px 0;
   font-size: 14px;
@@ -82,10 +89,12 @@ main form p {
       -ms-user-select: none;
           user-select: none;
 }
+
 main form p.desc {
   font-weight: bold;
   color: white;
 }
+
 main form .item-wrap {
   font-size: 1.3em;
   position: relative;
@@ -94,40 +103,52 @@ main form .item-wrap {
   background-color: #fff;
   border: 1px solid #efeded;
   cursor: pointer;
+  -webkit-transition: background 0.1s ease-in-out;
   transition: background 0.1s ease-in-out;
 }
+
 main form .item-wrap:hover {
   background-color: #efeded;
 }
+
 main form .item-wrap.active {
   background-color: rgba(255, 255, 255, 0.7);
 }
+
 main form .item-wrap:last-of-type {
   margin-bottom: 0;
 }
+
 main form .item-wrap input {
   position: absolute;
   opacity: 0;
 }
+
 main form .item-wrap input:focus ~ .checkmark {
   background-color: #3584e2 !important;
 }
+
 main form .item-wrap input:checked ~ .checkmark {
   background-color: #50990a;
 }
+
 main form .item-wrap input:checked ~ .checkmark:after {
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   left: 6px;
   top: 2px;
   width: 5px;
   height: 10px;
   border: solid #fff;
   border-width: 0 3px 3px 0;
-  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
   content: "";
   position: absolute;
-  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
 }
+
 main form .item-wrap label {
   padding: 10px;
   font-size: 14px;
@@ -135,36 +156,44 @@ main form .item-wrap label {
   cursor: pointer;
   display: block;
 }
+
 main form .item-wrap label p {
   margin: 0;
   padding-left: 30px;
   font-weight: bold;
 }
+
 main form .item-wrap .checkmark {
   position: absolute;
   left: 10px;
   top: 50%;
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
   height: 20px;
   width: 20px;
   background-color: #eee;
-  box-shadow: 0px 0 2px 1px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0px 0 2px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 0 2px 1px rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   cursor: pointer;
 }
+
 main form button {
   margin-top: 15px !important;
   padding: 0 20px !important;
   font-weight: bold;
 }
+
 main form .hint {
   color: #fbc32f;
   font-weight: bold;
 }
+
 main #result {
   max-width: 500px;
   margin: 0 auto;
 }
+
 main #result h3,
 main #result p {
   text-align: center;
@@ -174,41 +203,54 @@ main #result p {
   font-size: 20px;
   line-height: 20px;
 }
+
 main #result p {
   font-size: 40px;
   font-weight: bold;
   margin: 30px auto;
 }
+
 main #result p.red {
   color: #c64444;
 }
+
 main #result p.green {
   color: #50990a;
 }
+
 main #result p.yellow {
   color: #fbc32f;
 }
+
 main #result table {
   color: white;
   margin: 0 auto;
-  border-collapse: collapse;
+  border-collapse: initial;
   width: 100%;
 }
+
+main #result th {
+  font-size: 20px;
+}
+
 main #result th,
 main #result td {
   text-align: left;
   padding: 8px;
   text-align: center;
 }
+
 main #result tr:nth-child(even) {
   color: #666;
   background-color: #f2f2f2;
 }
+
 main #result .head {
   background: #666dfb !important;
   color: white !important;
   font-weight: bold;
 }
+
 main #identifier h3 {
   text-align: center;
   max-width: 300px;
@@ -217,6 +259,7 @@ main #identifier h3 {
   font-size: 14px;
   line-height: 20px;
 }
+
 main #identifier form {
   margin: 0 auto;
   display: block;
@@ -226,17 +269,21 @@ main #identifier form {
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.95);
 }
+
 main #identifier form::after {
   display: none;
 }
-main #identifier form button[type=submit] {
+
+main #identifier form button[type="submit"] {
   margin: 0 !important;
   width: 100%;
   font-weight: bold;
 }
+
 main #identifier form > div {
   margin-bottom: 15px;
 }
+
 main #identifier form > div span.title {
   min-width: 80px;
   display: inline-block;
@@ -245,11 +292,13 @@ main #identifier form > div span.title {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: bold;
 }
+
 main #identifier form > div span.innerTitle {
   min-width: 55px;
   display: inline-block;
   vertical-align: super;
 }
+
 main #identifier form > div label {
   font-size: 14px;
   font-weight: normal;
@@ -258,19 +307,23 @@ main #identifier form > div label {
   margin-left: 85px;
   margin-bottom: 10px;
 }
-main #identifier form input[type=number] {
+
+main #identifier form input[type="number"] {
   width: 40px;
 }
+
 main #identifier form #agreement {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
 }
+
 main #identifier form #agreement label {
   margin: 0;
 }
-main #identifier form #agreement label input[type=checkbox]::after {
+
+main #identifier form #agreement label input[type="checkbox"]::after {
   content: "";
   position: absolute;
   left: 5px;
@@ -278,12 +331,15 @@ main #identifier form #agreement label input[type=checkbox]::after {
   background: white;
   width: 3px;
   height: 7px;
-  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
 }
-main #identifier form #agreement label input[type=checkbox]::before {
+
+main #identifier form #agreement label input[type="checkbox"]::before {
   left: 11px;
   top: 9.5px;
 }
+
 main #identifier form #agreement .title {
   font-size: 12px;
   font-weight: normal;
@@ -292,6 +348,7 @@ main #identifier form #agreement .title {
   margin-left: 5px;
   vertical-align: super;
 }
+
 main #sharedLink h3 {
   font-size: 14px;
   color: white;
@@ -299,6 +356,21 @@ main #sharedLink h3 {
   margin-bottom: 0;
   line-height: 20px;
 }
+
 main #sharedLink form {
   text-align: center;
-}/*# sourceMappingURL=index.css.map */
+}
+
+.emptyCell {
+  background-color: #292d3e;
+}
+
+.unmatched td {
+  background-color: #c64444;
+  color: white;
+}
+
+.unmatched td.matched {
+  background-color: #50990a;
+}
+/*# sourceMappingURL=index.css.map */

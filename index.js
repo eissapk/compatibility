@@ -370,16 +370,18 @@
     
     function getTrans(index, code) {
       // must to deduct 1, because index here is not zero based
-      const word = dataArray[index-1].items.find(item => item.code === code)[manifest.lang];
-      // console.warn("word:",word);
-      return word 
+      return dataArray[index-1].items.find(item => item.code === code)[manifest.lang];
     }
+    var currentGender = current.gender == "male" ? "male" : "female";
+    var oldGender = !current.gender == "male" ? "male" : "female";
     function getTd(num) {
-      var str = "<tr class='head'><td>Form "+num+"</td><td>Form "+num+"</td></tr>";
+      var str = "<tr><td class='emptyCell'></td><td class='emptyCell'></td></tr> <tr><td class='emptyCell'></td><td class='emptyCell'></td></tr>" + 
+      "<tr class='head'><td>"+num + "- " + dataArray[num-1].title[currentGender][manifest.lang]+" </td><td>"+num + "- " + dataArray[num-1].title[oldGender][manifest.lang]+"</td></tr>"; 
+
       Object.keys(current[num]).forEach(function(x,index) {
         Object.keys(old[num]).forEach(function(y, ind) {
           if (index !== ind) return;
-          str += "<tr><td>"+getTrans(num, x)+"</td><td>"+getTrans(num, y)+"</td></tr>";
+          str += "<tr class='unmatched row_form_"+num+"'><td data-code='"+x+"'>"+getTrans(num, x)+"</td><td data-code='"+y+"'>"+getTrans(num, y)+"</td></tr>";
         });
       });
       return str;
@@ -402,6 +404,29 @@
       + '   </tbody>'
       + ' </table>'
       + ' </div>';
+
+    highlightMatches(wrapper);
+  }
+
+  function highlightMatches(wrapper) {
+    var formsIdsArr = [1,2,3,4]; // add new ids as you need
+    formsIdsArr.forEach(id => {
+      var rows = wrapper.getElementsByClassName("row_form_"+id);
+      for (var i = 0; i < rows.length; i++) {
+        var td = rows[i].getElementsByTagName("td")[0];
+        var code = td.getAttribute("data-code");
+
+        for (var y = 0; y < rows.length; y++) {
+          var td2 = rows[y].getElementsByTagName("td")[1];
+          var code2 = td2.getAttribute("data-code");
+          
+          if (code == code2) {
+            td.className += " matched";
+            td2.className += " matched";
+          }
+        }
+      }
+    })
   }
 
   function shareLinkForPartner() {

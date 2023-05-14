@@ -200,10 +200,13 @@ main {
     table {
       color: white;
       margin: 0 auto;
-      border-collapse: collapse;
+      border-collapse: initial;
       width: 100%;
     }
 
+    th {
+      font-size: 20px;
+    }
     th,
     td {
       text-align: left;
@@ -318,5 +321,19 @@ main {
     form {
       text-align: center;
     }
+  }
+}
+
+.emptyCell {
+  background-color: #292d3e;
+}
+
+.unmatched {
+  td {
+    background-color: $red;
+    &.matched {
+      background-color: $green;
+    }
+    color: white;
   }
 }
