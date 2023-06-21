@@ -373,7 +373,7 @@
       return dataArray[index-1].items.find(item => item.code === code)[manifest.lang];
     }
     var currentGender = current.gender == "male" ? "male" : "female";
-    var oldGender = !current.gender == "male" ? "male" : "female";
+    var oldGender = current.gender !== "male" ? "male" : "female";
     function getTd(num) {
       var str = "<tr><td class='emptyCell'></td><td class='emptyCell'></td></tr> <tr><td class='emptyCell'></td><td class='emptyCell'></td></tr>" + 
       "<tr class='head'><td>"+num + "- " + dataArray[num-1].title[currentGender][manifest.lang]+" </td><td>"+num + "- " + dataArray[num-1].title[oldGender][manifest.lang]+"</td></tr>"; 
