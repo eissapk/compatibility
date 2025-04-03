@@ -1,7 +1,7 @@
 (function () {
   var partnerInfo = null;
   var domain = "/compatibility";
-  // domain = ""; // uncommnet for dev mode only
+  domain = ""; // uncommnet for dev mode only
   var limit = 5;
 
   var dataArray = [
